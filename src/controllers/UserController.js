@@ -1,14 +1,25 @@
 
 const bcrypt = require('bcryptjs');
 const Users = require('../db/models/users');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     async index(request, response) {
+        const token = request.headers['x-access-token'];
+        if (!token) return response.status(401).json({ message: 'error', res: 'No token provided.' });
+        jwt.verify(token, process.env.SECRET || 'issosecreto', function (err, decoded) {
+            if (err) return response.status(500).json({ message: 'error', res: 'Failed to authenticate token.' });
+        })
         const result = await Users.find()
         response.json(result);
     },
     async create(request, response) {
         const { name, email, password } = request.body;
+        const token = request.headers['x-access-token'];
+        if (!token) return response.status(401).json({ message: 'error', res: 'No token provided.' });
+        jwt.verify(token, process.env.SECRET || 'issosecreto', function (err, decoded) {
+            if (err) return response.status(500).json({ message: 'error', res: 'Failed to authenticate token.' });
+        })
         var hash = bcrypt.hashSync(password, 8);
         let user = {};
         user.name = name;
@@ -20,6 +31,11 @@ module.exports = {
     },
     async update(request, response) {
         const { name, password, email } = request.body;
+        const token = request.headers['x-access-token'];
+        if (!token) return response.status(401).json({ message: 'error', res: 'No token provided.' });
+        jwt.verify(token, process.env.SECRET || 'issosecreto', function (err, decoded) {
+            if (err) return response.status(500).json({ message: 'error', res: 'Failed to authenticate token.' });
+        })
         var hash = bcrypt.hashSync(password, 8);
         await Users.findOneAndUpdate({ email: email }, { name: name, password: hash });
         const result = await Users.find({ email: email });
@@ -40,7 +56,10 @@ module.exports = {
 
                 });
             }
-            return response.json({ message: 'success', res: userGet[0] })
+            const token = jwt.sign({ email }, process.env.SECRET || 'issosecreto', {
+                expiresIn: 7200 // expires in 120min
+            });
+            return response.json({ message: 'success', token: token })
         });
     }
 }
