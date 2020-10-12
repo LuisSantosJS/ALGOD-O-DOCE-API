@@ -1,10 +1,15 @@
 const express = require('express');
+
+
+
+
 const UserController = require('./controllers/UserController');
 const TurmaController = require('./controllers/TurmaController');
 const CardapioController = require('./controllers/CardapioController');
 const AtividadeController = require('./controllers/AtividadeController');
 const GaleriaController = require('./controllers/GaleriaController');
 const PortifolioController = require('./controllers/PortifolioControler');
+
 
 const routes = express.Router();
 
@@ -35,6 +40,10 @@ routes.post('/galeria/delete', GaleriaController.delete);
 
 routes.get('/portifolio/index', PortifolioController.index);
 routes.post('/portifolio/create', PortifolioController.create);
+
+
+
+
 
 
 module.exports = routes;

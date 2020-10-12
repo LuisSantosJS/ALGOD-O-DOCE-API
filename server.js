@@ -6,6 +6,8 @@ const path = require('path');
 const cors = require('cors');
 const port = process.env.PORT || 3333;
 
+
+
 const app = express();
 app.use(express.json())
 app.use(cors());
@@ -15,8 +17,12 @@ connectDB();
 app.use(routes)
 
 
+
+
 app.use('/uploads', express.static(path.resolve(__dirname, 'src', 'uploads')));
 app.use('/assets', express.static(path.resolve(__dirname, 'src', 'assets')));
+
+
 
 app.use(celebrate.errors());
 
