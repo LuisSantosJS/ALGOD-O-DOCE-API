@@ -41,7 +41,7 @@ routes.post('/galeria/delete', GaleriaController.delete);
 
 routes.get('/portifolio/index', PortifolioController.index);
 routes.post('/portifolio/create', PortifolioController.create);
-
+routes.post('/portifolio/delete', PortifolioController.delete);
 
 
 
