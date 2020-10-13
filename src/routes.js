@@ -17,6 +17,7 @@ routes.get('/users/index', UserController.index);
 routes.post('/users/create', UserController.create);
 routes.post('/users/login', UserController.login);
 routes.post('/users/update', UserController.update);
+routes.post('/users/delete', UserController.delete);
 
 routes.get('/turmas/index', TurmaController.index);
 routes.post('/turmas/create', TurmaController.create);

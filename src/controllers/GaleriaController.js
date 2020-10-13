@@ -12,6 +12,7 @@ module.exports = {
         jwt.verify(token, process.env.SECRET || 'issosecreto', function (err, decoded) {
             if (err) return response.status(500).json({ message: 'error', res: 'Failed to authenticate token.' });
         })
+
         const {
             description,
             imageURL
