@@ -32,9 +32,16 @@ module.exports = {
             if (err) return response.status(500).json({ message: 'error', res: 'Failed to authenticate token.' });
         })
         var hash = bcrypt.hashSync(password, 8);
-        await Users.findOneAndUpdate({ email: email }, { name: name, password: hash });
-        const result = await Users.find({ email: email });
-        return response.json(result[0]);
+        if (String(password).length !== 0) {
+            await Users.findOneAndUpdate({ email: email }, { name: name, password: hash });
+            const result = await Users.find({ email: email });
+            return response.json(result[0]);
+        } else {
+            await Users.findOneAndUpdate({ email: email }, { name: name });
+            const result = await Users.find({ email: email });
+            return response.json(result[0]);
+        }
+
     },
     async login(request, response) {
         const { password, email } = request.body;
@@ -51,7 +58,7 @@ module.exports = {
                 });
             }
             const token = jwt.sign({ email }, process.env.SECRET || 'issosecreto', {
-               
+
             });
             return response.json({ message: 'success', token: token, res: 'Usuário logado com sucesso' })
         });
