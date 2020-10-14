@@ -51,7 +51,7 @@ module.exports = {
                 });
             }
             const token = jwt.sign({ email }, process.env.SECRET || 'issosecreto', {
-                expiresIn: 7200 // expires in 120min
+               
             });
             return response.json({ message: 'success', token: token, res: 'Usuário logado com sucesso' })
         });
