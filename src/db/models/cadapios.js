@@ -11,6 +11,10 @@ const cardapios = new mongoose.Schema({
     data:{
         type: String,
         require: true
+    },
+    anexo:{
+        type: String,
+        require: true
     }
 });
 module.exports = Cardapios = mongoose.model('cardapio', cardapios);

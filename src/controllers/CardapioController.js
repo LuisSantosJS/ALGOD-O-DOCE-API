@@ -15,12 +15,14 @@ module.exports = {
         const {
             description,
             name,
-            data
+            data,
+            anexo
         } = request.body;
         const cardapio = {
             description,
             name,
-            data
+            data,
+            anexo
         }
         const result = await new Cardapios(cardapio).save();
         response.json(result);
@@ -49,12 +51,14 @@ module.exports = {
             description,
             name,
             data,
+            anexo,
             id
         } = request.body;
         const updateValue = {
             description,
             name,
-            data
+            data,
+            anexo
         }
         Cardapios.findOneAndUpdate({ _id: id }, updateValue, {
             new: true,
