@@ -10,7 +10,9 @@ const atividades = new mongoose.Schema({
     },
     imageURL: {
         type: String,
-        require: true
+        require: true,
+         
+        
     },
     initialDate: {
         type: String,

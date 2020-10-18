@@ -63,11 +63,12 @@ module.exports = {
             if (err) return response.status(500).json({ message: 'error', res: 'Failed to authenticate token.' });
         });
 
-        const { description, name, id } = request.body;
+        const { description, name, id,imageURL } = request.body;
 
         const updateValue = {
             description,
             name,
+            imageURL
         }
         Portifolios.findOneAndUpdate({ _id: id }, updateValue, {
             new: true,
